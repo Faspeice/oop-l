@@ -1,41 +1,24 @@
 package com.omgtu.service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.omgtu.model.Bouquet;
+import com.omgtu.repo.BouquetRepo;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.List;
+
 
 public class BouquetService {
 
-    private final File jsonFile = new File("bouquets.json");
-    private final ObjectMapper mapper = new ObjectMapper();
+    private final BouquetRepo bouquetRepo = new BouquetRepo();
 
+    // Загрузка всех букетов из базы
     public List<Bouquet> loadBouquets() {
-        if (!jsonFile.exists()) return new ArrayList<>();
-
-        try {
-            return mapper.readValue(jsonFile, new TypeReference<List<Bouquet>>() {});
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ArrayList<>();
-        }
+        return bouquetRepo.findAll();
     }
 
+    // Сохранение одного букета в базу
     public void saveBouquet(Bouquet bouquet) {
-        List<Bouquet> bouquets = loadBouquets();
-        bouquets.add(bouquet);
-        saveAll(bouquets);
-    }
-
-    private void saveAll(List<Bouquet> bouquets) {
-        try {
-            mapper.writerWithDefaultPrettyPrinter().writeValue(jsonFile, bouquets);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        bouquetRepo.save(bouquet);
     }
 }
+
