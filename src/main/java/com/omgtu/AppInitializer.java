@@ -10,10 +10,6 @@ public class AppInitializer implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext ctx = sce.getServletContext();
 
-        ctx.addServlet("ServicesServlet", new ServicesServlet()).addMapping("/services");
-        ctx.addServlet("AboutServlet", new AboutServlet()).addMapping("/about");
-        ctx.addServlet("ContactServlet", new ContactServlet()).addMapping("/contact");
-        ctx.addServlet("FeedbackServlet", new FeedbackServlet()).addMapping("/feedback");
-        ctx.addServlet("ProductServlet", new ProductServlet()).addMapping("/products");
+        ctx.addServlet("BouquetServlet", new BouquetServlet()).addMapping("/bouquet");
     }
 }
